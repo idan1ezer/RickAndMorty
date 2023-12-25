@@ -37,6 +37,8 @@ class CharacterModel extends CharacterEntity {
   );
 
   factory CharacterModel.fromJson(Map<String, dynamic> json) {
+    String episodesToList = json['episode'].toString();
+    episodesToList.substring(1, episodesToList.length-1);
     return CharacterModel(
       id: json['id'] ?? -1,
       name: json['name'] ?? "Unknown",
@@ -47,7 +49,7 @@ class CharacterModel extends CharacterEntity {
       origin: json['origin']['name'] ?? "Unknown",
       location: json['location']['name'] ?? "Unknown",
       imageUrl: json['image'] ?? "",
-      episodes: json['episode'] ?? [],
+      episodes: episodesToList.split(', '),
       createdAt: json['created'] ?? "",
     );
   }
