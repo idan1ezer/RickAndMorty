@@ -2,7 +2,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:rick_and_morty/core/resources/data_state.dart';
 import 'package:rick_and_morty/features/characters/presentation/bloc/character/remote/remote_character_event.dart';
 import 'package:rick_and_morty/features/characters/presentation/bloc/character/remote/remote_character_state.dart';
-
 import '../../../../domain/usecases/get_all_characters.dart';
 
 class RemoteCharacterBloc extends Bloc<RemoteCharacterEvent, RemoteCharacterState> {
@@ -22,7 +21,6 @@ class RemoteCharacterBloc extends Bloc<RemoteCharacterEvent, RemoteCharacterStat
     }
 
     if (dataState is DataFailed) {
-      print(dataState.exception!.error);
       emit(
         RemoteCharacterException(dataState.exception!)
       );

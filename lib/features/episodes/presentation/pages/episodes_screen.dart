@@ -1,13 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:rick_and_morty/features/characters/presentation/bloc/character/remote/remote_character_bloc.dart';
-import 'package:rick_and_morty/features/characters/presentation/bloc/character/remote/remote_character_state.dart';
+import '../bloc/episode/remote/remote_episode_bloc.dart';
+import '../bloc/episode/remote/remote_episode_state.dart';
+import '../widgets/episode_tile.dart';
 
-import '../widgets/character_tile.dart';
-
-class CharacterScreen extends StatelessWidget {
-  const CharacterScreen({Key? key}) : super (key: key);
+class EpisodeScreen extends StatelessWidget {
+  const EpisodeScreen({Key? key}) : super (key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -17,11 +16,10 @@ class CharacterScreen extends StatelessWidget {
     );
   }
 
-
   _buildAppbar(BuildContext context) {
     return AppBar(
       title: const Text(
-        'Characters',
+        'Episodes',
         style: TextStyle(
             color: Colors.black
         ),
@@ -39,23 +37,23 @@ class CharacterScreen extends StatelessWidget {
   }
 
   _buildBody() {
-    return BlocBuilder<RemoteCharacterBloc, RemoteCharacterState> (
+    return BlocBuilder<RemoteEpisodesBloc, RemoteEpisodeState> (
       builder: (_,state) {
-        if (state is RemoteCharacterLoading) {
+        if (state is RemoteEpisodeLoading) {
           return const Center(child: CupertinoActivityIndicator());
         }
-        if (state is RemoteCharacterException) {
+        if (state is RemoteEpisodeException) {
           return const Center(child: Icon(Icons.refresh));
         }
-        if (state is RemoteCharacterDone) {
+        if (state is RemoteEpisodeDone) {
           return ListView.builder(
             itemBuilder: (context,index){
-              return CharacterWidget(
-                character: state.characters![index] ,
+              return EpisodeWidget(
+                episode: state.episodes![index] ,
                 // onCharacterPressed: (character) => _onCharacterPressed(context,character),
               );
             },
-            itemCount: state.characters!.length,
+            itemCount: state.episodes!.length,
           );
         }
         return const SizedBox();

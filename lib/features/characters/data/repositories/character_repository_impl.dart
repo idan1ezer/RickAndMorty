@@ -18,8 +18,6 @@ class CharacterRepositoryImpl implements CharacterRepository {
         page: page.toString(),
       );
 
-      print(httpResponse.response.statusCode);
-
       if (httpResponse.response.statusCode == HttpStatus.ok) {
         return DataSuccess(httpResponse.data);
       }

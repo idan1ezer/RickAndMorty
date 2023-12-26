@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'characters_api_service.dart';
+part of 'episodes_api_service.dart';
 
 // **************************************************************************
 // RetrofitGenerator
@@ -8,11 +8,11 @@ part of 'characters_api_service.dart';
 
 // ignore_for_file: unnecessary_brace_in_string_interps,no_leading_underscores_for_local_identifiers
 
-class _CharacterRemoteDataSource implements CharacterRemoteDataSource {
-  _CharacterRemoteDataSource(
-      this._dio, {
-        this.baseUrl,
-      }) {
+class _EpisodeRemoteDataSource implements EpisodeRemoteDataSource {
+  _EpisodeRemoteDataSource(
+    this._dio, {
+    this.baseUrl,
+  }) {
     baseUrl ??= 'https://rickandmortyapi.com/api';
   }
 
@@ -21,7 +21,7 @@ class _CharacterRemoteDataSource implements CharacterRemoteDataSource {
   String? baseUrl;
 
   @override
-  Future<HttpResponse<List<CharacterModel>>> getAllCharacters(
+  Future<HttpResponse<List<EpisodeModel>>> getAllEpisodes(
       {String? page}) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{r'page': page};
@@ -29,24 +29,24 @@ class _CharacterRemoteDataSource implements CharacterRemoteDataSource {
     final _headers = <String, dynamic>{};
     final Map<String, dynamic>? _data = null;
     final _result = await _dio.fetch<Map<String, dynamic>>(
-        _setStreamType<HttpResponse<List<CharacterModel>>>(Options(
-          method: 'GET',
-          headers: _headers,
-          extra: _extra,
-        )
+        _setStreamType<HttpResponse<List<EpisodeModel>>>(Options(
+      method: 'GET',
+      headers: _headers,
+      extra: _extra,
+    )
             .compose(
-          _dio.options,
-          '/character',
-          queryParameters: queryParameters,
-          data: _data,
-        )
+              _dio.options,
+              '/episode',
+              queryParameters: queryParameters,
+              data: _data,
+            )
             .copyWith(
-            baseUrl: _combineBaseUrls(
+                baseUrl: _combineBaseUrls(
               _dio.options.baseUrl,
               baseUrl,
             ))));
-    List<CharacterModel> value = _result.data!['results']
-        .map<CharacterModel>((dynamic i) => CharacterModel.fromJson(i as Map<String, dynamic>))
+    List<EpisodeModel> value = _result.data!['results']
+        .map<EpisodeModel>((dynamic i) => EpisodeModel.fromJson(i as Map<String, dynamic>))
         .toList();
     final httpResponse = HttpResponse(value, _result);
     return httpResponse;
@@ -66,9 +66,9 @@ class _CharacterRemoteDataSource implements CharacterRemoteDataSource {
   }
 
   String _combineBaseUrls(
-      String dioBaseUrl,
-      String? baseUrl,
-      ) {
+    String dioBaseUrl,
+    String? baseUrl,
+  ) {
     if (baseUrl == null || baseUrl.trim().isEmpty) {
       return dioBaseUrl;
     }

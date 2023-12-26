@@ -5,10 +5,10 @@ import '../../domain/entities/character.dart';
 
 
 class CharacterWidget extends StatelessWidget {
-  final CharacterEntity ? character;
-  final bool ? isRemovable;
-  final void Function(CharacterEntity character) ? onRemove;
-  final void Function(CharacterEntity character) ? onCharacterPressed;
+  final CharacterEntity? character;
+  final bool? isRemovable;
+  final void Function(CharacterEntity character)? onRemove;
+  final void Function(CharacterEntity character)? onCharacterPressed;
 
   const CharacterWidget({
     Key ? key,

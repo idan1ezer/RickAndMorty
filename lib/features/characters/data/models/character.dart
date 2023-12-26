@@ -1,14 +1,6 @@
 import 'package:rick_and_morty/features/characters/domain/entities/character.dart';
 
 class CharacterModel extends CharacterEntity {
-  // final int? id;
-  // final String? name;
-  // final String? status;
-  // final String? species;
-  // final String? type;
-  // final String? gender;
-  // final String? origin;
-  // final String? imageUrl;
   final String? location;
   final List<String>? episodes;
   final String? createdAt;
@@ -25,20 +17,20 @@ class CharacterModel extends CharacterEntity {
     this.location,
     this.episodes,
     this.createdAt,
-  }): super(
-    id: id,
-    name: name,
-    status: status,
-    species: species,
-    type: type,
-    gender: gender,
-    origin: origin,
-    imageUrl: imageUrl
-  );
+  }) : super(
+          id: id,
+          name: name,
+          status: status,
+          species: species,
+          type: type,
+          gender: gender,
+          origin: origin,
+          imageUrl: imageUrl,
+        );
 
   factory CharacterModel.fromJson(Map<String, dynamic> json) {
     String episodesToList = json['episode'].toString();
-    episodesToList.substring(1, episodesToList.length-1);
+    episodesToList.substring(1, episodesToList.length - 1);
     return CharacterModel(
       id: json['id'] ?? -1,
       name: json['name'] ?? "Unknown",
@@ -55,13 +47,13 @@ class CharacterModel extends CharacterEntity {
   }
 
   CharacterEntity toEntity() => CharacterEntity(
-    id: id,
-      name: name,
-      status: status,
-      species: species,
-      type: type,
-      gender: gender,
-      origin: origin,
-      imageUrl: imageUrl
-  );
+        id: id,
+        name: name,
+        status: status,
+        species: species,
+        type: type,
+        gender: gender,
+        origin: origin,
+        imageUrl: imageUrl,
+      );
 }
