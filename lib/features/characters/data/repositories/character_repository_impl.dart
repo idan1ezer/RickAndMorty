@@ -37,9 +37,28 @@ class CharacterRepositoryImpl implements CharacterRepository {
   }
 
   @override
-  Future<DataState<CharacterModel>> getSingleCharacter(int id) {
-    // TODO: implement getSingleCharacter
-    throw UnimplementedError();
+  Future<DataState<CharacterModel>> getSingleCharacter(int id) async{
+    try {
+      final httpResponse = await _characterRemoteDataSource.getSingleCharacter(
+        id: id,
+      );
+
+      if (httpResponse.response.statusCode == HttpStatus.ok) {
+        return DataSuccess(httpResponse.data);
+      }
+      else {
+        return DataFailed(
+            DioException(
+                error: httpResponse.response.statusMessage,
+                response: httpResponse.response,
+                type: DioExceptionType.badResponse,
+                requestOptions: httpResponse.response.requestOptions
+            )
+        );
+      }
+    } on DioException catch(e){
+      return DataFailed(e);
+    }
   }
 
 }

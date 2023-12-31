@@ -7,10 +7,12 @@ import 'package:rick_and_morty/features/episodes/presentation/bloc/episode/remot
 import 'package:rick_and_morty/features/episodes/presentation/pages/episodes_screen.dart';
 import 'package:rick_and_morty/injection_container.dart';
 
+import 'config/routes/app_routes.dart';
 import 'config/theme/app_themes.dart';
 import 'features/characters/presentation/pages/characters_screen.dart';
 
 Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
   await initializeDependencies();
   runApp(const MyApp());
 }
@@ -32,7 +34,8 @@ class MyApp extends StatelessWidget {
         child: MaterialApp(
           debugShowCheckedModeBanner: false,
           theme: theme(),
-          home: const EpisodeScreen(),
+          onGenerateRoute: AppRoutes.onGenerateRoutes,
+          home: const CharacterScreen(),
         ),
     );
     // return BlocProvider<RemoteCharacterBloc>(

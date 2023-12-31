@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:rick_and_morty/features/characters/domain/entities/character.dart';
 import 'package:rick_and_morty/features/characters/presentation/bloc/character/remote/remote_character_bloc.dart';
 import 'package:rick_and_morty/features/characters/presentation/bloc/character/remote/remote_character_state.dart';
 
@@ -52,7 +53,7 @@ class CharacterScreen extends StatelessWidget {
             itemBuilder: (context,index){
               return CharacterWidget(
                 character: state.characters![index] ,
-                // onCharacterPressed: (character) => _onCharacterPressed(context,character),
+                onCharacterPressed: (character) => _onCharacterPressed(context,character),
               );
             },
             itemCount: state.characters!.length,
@@ -63,4 +64,7 @@ class CharacterScreen extends StatelessWidget {
     );
   }
 
+  void _onCharacterPressed(BuildContext context, CharacterEntity character) {
+    Navigator.pushNamed(context, '/CharacterDetails', arguments: character);
+  }
 }

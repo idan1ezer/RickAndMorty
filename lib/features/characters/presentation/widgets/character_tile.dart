@@ -7,7 +7,7 @@ import '../../domain/entities/character.dart';
 class CharacterWidget extends StatelessWidget {
   final CharacterEntity? character;
   final bool? isRemovable;
-  final void Function(CharacterEntity character)? onRemove;
+  // final void Function(CharacterEntity character)? onRemove;
   final void Function(CharacterEntity character)? onCharacterPressed;
 
   const CharacterWidget({
@@ -15,14 +15,14 @@ class CharacterWidget extends StatelessWidget {
     this.character,
     this.onCharacterPressed,
     this.isRemovable = false,
-    this.onRemove,
+    // this.onRemove,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       behavior: HitTestBehavior.opaque,
-      // onTap: _onTap,
+      onTap: _onTap,
       child: Container(
         padding: const EdgeInsetsDirectional.only(start: 14, end: 14, bottom: 7, top: 7),
         height: MediaQuery
@@ -152,5 +152,11 @@ class CharacterWidget extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  void _onTap() {
+    if (onCharacterPressed != null) {
+      onCharacterPressed!(character!);
+    }
   }
 }

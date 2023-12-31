@@ -12,4 +12,10 @@ abstract class CharacterRemoteDataSource {
   Future<HttpResponse<List<CharacterModel>>> getAllCharacters({
     @Query("page") String? page,
   });
+
+  @GET('/character/{id}')
+  Future<HttpResponse<CharacterModel>> getSingleCharacter({
+    @Path('id') int? id,
+  });
+
 }
