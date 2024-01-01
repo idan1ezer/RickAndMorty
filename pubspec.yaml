@@ -52,17 +52,22 @@ dependencies:
   dio: ^5.4.0
   retrofit: ^4.0.3
 
-  #cached image
+  #cached image:
   cached_network_image: ^3.3.0
 
+  #Database:
+  floor: ^1.4.2
 
+  #hooks:
+  flutter_hooks: ^0.20.3
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
   retrofit_generator: '>=7.0.0 <8.0.0'
   build_runner: '>=2.3.0 <4.0.0'
-#  json_serializable: ^6.6.2
+  floor_generator: ^1.4.2
+  #  json_serializable: ^6.6.2
 
   # The "flutter_lints" package below contains a set of recommended lints to
   # encourage good coding practices. The lint set provided by the package is

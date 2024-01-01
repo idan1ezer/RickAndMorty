@@ -3,12 +3,15 @@ import 'dart:io';
 import 'package:dio/dio.dart';
 import 'package:rick_and_morty/core/resources/data_state.dart';
 import 'package:rick_and_morty/features/characters/data/models/character.dart';
+import 'package:rick_and_morty/features/characters/domain/entities/character.dart';
 import 'package:rick_and_morty/features/characters/domain/repositories/character_repository.dart';
+import '../data_sources/local/app_database.dart';
 import '../data_sources/remote/characters_api_service.dart';
 
 class CharacterRepositoryImpl implements CharacterRepository {
   final CharacterRemoteDataSource _characterRemoteDataSource;
-  CharacterRepositoryImpl(this._characterRemoteDataSource);
+  final ApplicationDatabase _appDatabase;
+  CharacterRepositoryImpl(this._characterRemoteDataSource, this._appDatabase);
 
   @override
   Future<DataState<List<CharacterModel>>> getAllCharacters(int page) async {
@@ -59,6 +62,21 @@ class CharacterRepositoryImpl implements CharacterRepository {
     } on DioException catch(e){
       return DataFailed(e);
     }
+  }
+
+  @override
+  Future<List<CharacterModel>> getSavedCharacters() {
+    return _appDatabase.characterDAO.getCharacters();
+  }
+
+  @override
+  Future<void> removeCharacter(CharacterEntity character) {
+    return _appDatabase.characterDAO.deleteCharacter(CharacterModel.fromEntity(character));
+  }
+
+  @override
+  Future<void> saveCharacter(CharacterEntity character) {
+    return _appDatabase.characterDAO.insertCharacter(CharacterModel.fromEntity(character));
   }
 
 }

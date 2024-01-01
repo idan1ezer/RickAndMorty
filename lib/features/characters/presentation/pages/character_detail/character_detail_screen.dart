@@ -2,11 +2,12 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:rick_and_morty/features/characters/domain/entities/character.dart';
+import 'package:rick_and_morty/features/characters/presentation/bloc/character/local/local_character_bloc.dart';
+import 'package:rick_and_morty/features/characters/presentation/bloc/character/local/local_character_event.dart';
 import 'package:rick_and_morty/features/characters/presentation/bloc/character/remote/remote_character_bloc.dart';
 import 'package:rick_and_morty/features/characters/presentation/bloc/character/remote/remote_character_event.dart';
 
-import '../../../../injection_container.dart';
-import '../bloc/character/remote/remote_character_state.dart';
+import '../../../../../injection_container.dart';
 
 class CharacterDetailsScreen extends StatelessWidget {
   final CharacterEntity? character;
@@ -15,11 +16,25 @@ class CharacterDetailsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    return MultiBlocProvider(
+        providers: [
+          BlocProvider<RemoteCharacterBloc>(
+    create: (context) => sl()..add(GetSingleCharacter(character!))),
+          BlocProvider<LocalCharacterBloc>(
+            create: (context) => sl()..add(SaveCharacter(character!)),
+          ),
+        ],
+        child: Scaffold(
+          appBar: _buildAppbar(context),
+          body: _buildCharacterDetail(),
+          floatingActionButton: _buildFloatingActionButton(),
+        ),);
     return BlocProvider<RemoteCharacterBloc>(
       create: (context) => sl()..add(GetSingleCharacter(character!)),
       child: Scaffold(
         appBar: _buildAppbar(context),
         body: _buildCharacterDetail(),
+        floatingActionButton: _buildFloatingActionButton(),
       ),
     );
   }
@@ -109,6 +124,25 @@ class CharacterDetailsScreen extends StatelessWidget {
           ),
         ),
       ],
+    );
+  }
+
+  Widget _buildFloatingActionButton() {
+    return Builder(
+      builder: (context) => FloatingActionButton(
+        onPressed: () => _onFloatingActionButtonPressed(context),
+        child: const Icon(CupertinoIcons.heart_fill, color: Colors.red),
+      ),
+    );
+  }
+
+  void _onFloatingActionButtonPressed(BuildContext context) {
+    BlocProvider.of<LocalCharacterBloc>(context).add(SaveCharacter(character!));
+    ScaffoldMessenger.of(context).showSnackBar(
+      const SnackBar(
+        backgroundColor: Colors.black,
+        content: Text('Character saved successfully.'),
+      ),
     );
   }
 

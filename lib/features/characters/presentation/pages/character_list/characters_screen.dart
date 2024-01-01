@@ -5,7 +5,7 @@ import 'package:rick_and_morty/features/characters/domain/entities/character.dar
 import 'package:rick_and_morty/features/characters/presentation/bloc/character/remote/remote_character_bloc.dart';
 import 'package:rick_and_morty/features/characters/presentation/bloc/character/remote/remote_character_state.dart';
 
-import '../widgets/character_tile.dart';
+import '../../widgets/character_tile.dart';
 
 class CharacterScreen extends StatelessWidget {
   const CharacterScreen({Key? key}) : super (key: key);
@@ -29,10 +29,10 @@ class CharacterScreen extends StatelessWidget {
       ),
       actions: [
         GestureDetector(
-          // onTap: () => _onShowSavedArticlesViewTapped(context),
+          onTap: () => _onShowSavedCharactersViewTapped(context),
           child: const Padding(
             padding: EdgeInsets.symmetric(horizontal: 14),
-            child: Icon(Icons.science, color: Colors.black),
+            child: Icon(CupertinoIcons.heart_fill, color: Colors.red),
           ),
         ),
       ],
@@ -66,5 +66,9 @@ class CharacterScreen extends StatelessWidget {
 
   void _onCharacterPressed(BuildContext context, CharacterEntity character) {
     Navigator.pushNamed(context, '/CharacterDetails', arguments: character);
+  }
+
+  void _onShowSavedCharactersViewTapped(BuildContext context) {
+    Navigator.pushNamed(context, '/SavedCharacters');
   }
 }

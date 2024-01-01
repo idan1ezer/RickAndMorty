@@ -9,7 +9,7 @@ import 'package:rick_and_morty/injection_container.dart';
 
 import 'config/routes/app_routes.dart';
 import 'config/theme/app_themes.dart';
-import 'features/characters/presentation/pages/characters_screen.dart';
+import 'features/characters/presentation/pages/character_list/characters_screen.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();

@@ -28,7 +28,7 @@ class _EpisodeRemoteDataSource implements EpisodeRemoteDataSource {
     queryParameters.removeWhere((k, v) => v == null);
     final _headers = <String, dynamic>{};
     final Map<String, dynamic>? _data = null;
-    final _result = await _dio.fetch<Map<String, dynamic>>(
+    final _result = await _dio.fetch<List<dynamic>>(
         _setStreamType<HttpResponse<List<EpisodeModel>>>(Options(
       method: 'GET',
       headers: _headers,
@@ -45,8 +45,8 @@ class _EpisodeRemoteDataSource implements EpisodeRemoteDataSource {
               _dio.options.baseUrl,
               baseUrl,
             ))));
-    List<EpisodeModel> value = _result.data!['results']
-        .map<EpisodeModel>((dynamic i) => EpisodeModel.fromJson(i as Map<String, dynamic>))
+    var value = _result.data!
+        .map((dynamic i) => EpisodeModel.fromJson(i as Map<String, dynamic>))
         .toList();
     final httpResponse = HttpResponse(value, _result);
     return httpResponse;

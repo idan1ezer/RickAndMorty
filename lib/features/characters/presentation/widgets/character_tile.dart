@@ -7,7 +7,7 @@ import '../../domain/entities/character.dart';
 class CharacterWidget extends StatelessWidget {
   final CharacterEntity? character;
   final bool? isRemovable;
-  // final void Function(CharacterEntity character)? onRemove;
+  final void Function(CharacterEntity character)? onRemove;
   final void Function(CharacterEntity character)? onCharacterPressed;
 
   const CharacterWidget({
@@ -15,7 +15,7 @@ class CharacterWidget extends StatelessWidget {
     this.character,
     this.onCharacterPressed,
     this.isRemovable = false,
-    // this.onRemove,
+    this.onRemove,
   }) : super(key: key);
 
   @override
@@ -33,7 +33,7 @@ class CharacterWidget extends StatelessWidget {
           children: [
             _buildImage(context),
             _buildTitleAndDescription(),
-            // _buildRemovableArea(),
+            _buildRemovableArea(),
           ],
         ),
       ),
@@ -154,9 +154,28 @@ class CharacterWidget extends StatelessWidget {
     );
   }
 
+  Widget _buildRemovableArea() {
+    if (isRemovable!) {
+      return GestureDetector(
+        onTap: _onRemove,
+        child: const Padding(
+          padding: EdgeInsets.symmetric(horizontal: 8),
+          child: Icon(Icons.remove_circle_outline, color: Colors.red),
+        ),
+      );
+    }
+    return Container();
+  }
+
   void _onTap() {
     if (onCharacterPressed != null) {
       onCharacterPressed!(character!);
+    }
+  }
+
+  void _onRemove() {
+    if (onRemove != null) {
+      onRemove!(character!);
     }
   }
 }
